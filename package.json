@@ -1,5 +1,5 @@
 {
-  "name": "next-template",
+  "name": "next-setup",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,17 +8,32 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/defer-promise": "^1.0.0",
+    "@types/numeral": "^2.0.2",
+    "@types/store": "^2.0.2",
+    "axios": "^0.24.0",
+    "defer-promise": "^2.0.1",
+    "ethers": "^5.5.2",
+    "inversify": "^6.0.1",
+    "inversify-react": "^1.0.0",
     "mobx": "^6.3.8",
     "mobx-react": "^7.2.1",
     "next": "12.0.7",
+    "numeral": "^2.0.6",
+    "parcel": "^2.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "store": "^2.0.12",
+    "typescript-json-serializer": "^3.4.4",
+    "walletlink": "^2.2.10"
   },
   "devDependencies": {
-    "@types/node": "16.11.11",
+    "@types/node": "16.11.12",
     "@types/react": "17.0.37",
-    "eslint": "8.4.0",
+    "eslint": "8.4.1",
     "eslint-config-next": "12.0.7",
-    "typescript": "4.5.2"
+    "typescript": "4.5.2",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
   }
 }
