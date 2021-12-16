@@ -12,6 +12,7 @@
     "@types/numeral": "^2.0.2",
     "@types/store": "^2.0.2",
     "axios": "^0.24.0",
+    "bignumber.js": "^9.0.2",
     "defer-promise": "^2.0.1",
     "ethers": "^5.5.2",
     "inversify": "^6.0.1",
@@ -23,6 +24,7 @@
     "parcel": "^2.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-toastify": "^8.1.0",
     "store": "^2.0.12",
     "typescript-json-serializer": "^3.4.4",
     "walletlink": "^2.2.10"
