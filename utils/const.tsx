@@ -1,7 +1,5 @@
 export const INFURA_ID = 'b266401a3b4242aebe375aa154e80e9d'
 
-
-
 export const NETWORKS = {
     avax: {
         master: '0xD58cef37f1e9a42fd2938212Ad6eBBF3fE83eC5d',
@@ -18,7 +16,8 @@ export const NETWORKS = {
             blockExplorerUrls: ['https://cchain.explorer.avax.network'],
         },
         explorerTpl: 'https://cchain.explorer.avax.network/address/ADDRESS',
-        tokenList: 'https://raw.githubusercontent.com/complusnetwork/default-token-list/master/default-tokenlist-ava.json',
+        tokenList:
+            'https://raw.githubusercontent.com/complusnetwork/default-token-list/master/default-tokenlist-ava.json',
     },
     bsc: {
         master: '0x3243d89382fAA26e3f4eC39E64243A3aa0Ef3Ed4',
@@ -35,7 +34,8 @@ export const NETWORKS = {
             blockExplorerUrls: ['https://bscscan.com/'],
         },
         explorerTpl: 'https://bscscan.com/address/ADDRESS',
-        tokenList: 'https://gateway.pinata.cloud/ipfs/QmdKy1K5TMzSHncLzUXUJdvKi1tHRmJocDRfmCXxW5mshS',
+        tokenList:
+            'https://gateway.pinata.cloud/ipfs/QmdKy1K5TMzSHncLzUXUJdvKi1tHRmJocDRfmCXxW5mshS',
     },
     eth: {
         master: '0xB9144272C971Ae08Db982DBFb6DA79A4c7961be1',
@@ -69,7 +69,8 @@ export const NETWORKS = {
             blockExplorerUrls: ['https://ftmscan.com'],
         },
         explorerTpl: 'https://ftmscan.com/address/ADDRESS',
-        tokenList: 'https://raw.githubusercontent.com/Crocoswap/tokenlists/main/fantomfinance.tokenlist.json',
+        tokenList:
+            'https://raw.githubusercontent.com/Crocoswap/tokenlists/main/fantomfinance.tokenlist.json',
     },
     heco: {
         master: '0xF2c257532ccd48B779Fa9402B78CCEB57bdD633c',
@@ -86,7 +87,8 @@ export const NETWORKS = {
             blockExplorerUrls: ['https://hecoinfo.com/'],
         },
         explorerTpl: 'https://hecoinfo.com/address/ADDRESS',
-        tokenList: 'https://raw.githubusercontent.com/complusnetwork/default-token-list/master/default-tokenlist-heco.json',
+        tokenList:
+            'https://raw.githubusercontent.com/complusnetwork/default-token-list/master/default-tokenlist-heco.json',
     },
     polygon: {
         master: '0x5171BD33Cc5851F749F4aCa983F6C6086CA8Df0E',
@@ -103,8 +105,7 @@ export const NETWORKS = {
             blockExplorerUrls: ['https://explorer-mainnet.maticvigil.com'],
         },
         explorerTpl: 'https://explorer-mainnet.maticvigil.com/address/ADDRESS',
-        tokenList: 'https://raw.githubusercontent.com/complusnetwork/default-token-list/master/default-tokenlist-matic.json',
+        tokenList:
+            'https://raw.githubusercontent.com/complusnetwork/default-token-list/master/default-tokenlist-matic.json',
     },
 }
-
-
