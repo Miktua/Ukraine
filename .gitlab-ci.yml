@@ -1,0 +1,70 @@
+stages:
+  - build
+  - deploy-test
+  - deploy-prod
+
+docker-build:
+  # Use the official docker image.
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - cat .gitignore >> .dockerignore
+  # Default branch leaves tag empty (= latest tag)
+  # All other branches are tagged with the escaped branch name (commit ref slug)
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        tag=""
+        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+      else
+        tag=":$CI_COMMIT_REF_SLUG"
+        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
+      fi
+    - docker tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" "$CI_REGISTRY_IMAGE${tag}"
+    - docker push "$CI_REGISTRY_IMAGE${tag}"
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile
+
+portainer-deploy:
+  stage: deploy-test
+  image: registry.bykollab.com/kollab/infra/gitlab-portainer-deploy:latest
+  variables:
+    PORTAINER_STACK_NAME: "${CI_PROJECT_NAMESPACE}_${CI_PROJECT_NAME}"
+    PORTAINER_ENV: "${TEST_ENV}"
+    PORTAINER_GIT_USERNAME: "gitlab-ci-token"
+    PORTAINER_GIT_PASSWORD: "${CI_JOB_TOKEN}"
+  script:
+    - deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - docker-stack.yml
+
+production-deploy:
+  stage: deploy-prod
+  image: registry.bykollab.com/kollab/infra/alpine:latest
+  environment:
+    name: production
+  variables:
+    PROD_DIR: /root/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+    PROD_VERSION: $CI_COMMIT_SHORT_SHA
+  script:
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - echo "$PROD_ENV" >.env
+    - ssh "$PROD_HOST" "mkdir -p $PROD_DIR"
+    - ssh "$PROD_HOST" docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - scp docker-compose.prod.yml $PROD_HOST:$PROD_DIR/docker-compose.yml
+    - scp .env $PROD_HOST:$PROD_DIR/.env
+    - ssh "$PROD_HOST" "cd $PROD_DIR && PROD_VERSION=$PROD_VERSION docker-compose up -d"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - docker-compose.prod.yml
+      when: manual
