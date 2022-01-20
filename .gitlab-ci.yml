@@ -37,13 +37,13 @@ portainer-deploy:
   image: registry.bykollab.com/kollab/infra/gitlab-portainer-deploy:latest
   variables:
     PORTAINER_STACK_NAME: "${CI_PROJECT_NAMESPACE}_${CI_PROJECT_NAME}"
-    PORTAINER_ENV: "${TEST_ENV}"
+    PORTAINER_ENV: "${TEST_ENV}\nCI_PROJECT_NAMESPACE=${CI_PROJECT_NAMESPACE}\nCI_PROJECT_NAME=${CI_PROJECT_NAME}"
     PORTAINER_GIT_USERNAME: "gitlab-ci-token"
     PORTAINER_GIT_PASSWORD: "${CI_JOB_TOKEN}"
   script:
     - deploy
   rules:
-    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       exists:
         - docker-stack.yml
 

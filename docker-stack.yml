@@ -14,5 +14,5 @@ services:
 
 networks:
   default:
-    external:
-      name: web
+    name: web
+    external: true
