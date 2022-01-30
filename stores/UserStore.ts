@@ -1,41 +1,22 @@
-import axios from 'axios'
 import { injectable } from 'inversify'
-import { action, makeObservable, observable } from 'mobx'
+import {  makeObservable, observable } from 'mobx'
 import 'reflect-metadata'
 import { RootStore } from './RootStore'
-import { toast } from 'react-toastify'
+import {fetchProfile, IFetchProfileResponseData} from "../api/profile";
 
-interface User {
-    login: string
-    email: string
-    address?: string
-    id?: string
-}
 
 @injectable()
 export class UserStore {
-    @observable user?: User
-    @observable isAuth: boolean
-    @observable isError: boolean
-    @observable state = '123'
+    @observable user?: IFetchProfileResponseData | null = null
 
     public constructor(private readonly rootStore: RootStore) {
         makeObservable(this)
-        this.isAuth = false
-        this.isError = false
-    }
-
-    changeString = (newString: string) => {
-        console.log(`newString`, newString)
-        this.state = newString
-    }
-
-    async Login(sign: unknown, msg: unknown) {
-        console.log('login')
     }
 
     //get user data
-    async GetUser() {
-        console.log('get user')
+    async getUser() {
+        const { data } = await fetchProfile()
+        //@ts-ignore
+        this.user = data.user
     }
 }

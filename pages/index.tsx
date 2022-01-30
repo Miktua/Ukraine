@@ -10,8 +10,6 @@ import styles from '../styles/Home.module.css'
 
 const Home: NextPage = observer((props) => {
     const store = useInjection(UserStore)
-    console.log(`props`, props)
-    console.log(`store`, store)
 
     return (
         <div className={styles.container}>
