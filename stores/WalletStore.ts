@@ -34,6 +34,7 @@ export class Web3Store {
 
     public constructor(private readonly rootStore: RootStore) {
         makeObservable(this)
+        //TODO change this to dynamic value
         this.web3infura = new Web3(NETWORKS[4])
     }
 
