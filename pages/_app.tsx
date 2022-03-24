@@ -14,7 +14,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     // try reconnect to web3
     useEffect(() => {
         rootStore.walletStore.tryReconnect()
-        rootStore.modalStore.showModal(ModalsEnum.Example)
     }, [])
 
     return (
