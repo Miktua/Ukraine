@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { baseURL } from '../utils/config';
 import { isServer } from "../utils/utilities";
-import { RootStore } from '../stores/RootStore';
 
 export const AUTH_TOKEN_NAME = 'jwt'
 export const AUTH_TOKEN_TTL_NAME = 'jwtTTL'
@@ -18,17 +18,16 @@ export const buildHeaders = (): AxiosRequestHeaders => ({
     authorization: !isServer && getAuthToken() ? `Bearer ${getAuthToken()}` : ''
 });
 
-// const rootStore = new RootStore();
 
 
 export const instance = axios.create({
-    baseURL: 'https://atech-frontend-atech.do.bykollab.com/'
+    baseURL: baseURL
 });
 
 
 //for server call
 export const server_api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_SERVER_URL
+    baseURL: baseURL
 })
 
 export interface IResponse<T> {
@@ -53,7 +52,6 @@ const request = <T>({ url = '', method = 'GET', params = {}, headers = buildHead
                 if (axios.isAxiosError(err)) {
                     if (err.response?.status === 401) {
                         console.error({axiosError: err})
-                        // return rootStore
                     }
 
                     return reject({

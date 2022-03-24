@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import { ModalStore } from '../stores/ModalStore';
 import { useInjection } from 'inversify-react';
-import styles from './Modal.module.css';
-import { ModalsEnum } from '../modals';
+import styles from './Modal.module.sass';
+import { ModalsEnum } from '.';
 
 interface IModalProps {
     modalKey: ModalsEnum;
@@ -19,8 +19,8 @@ interface P extends React.PropsWithChildren<IModalProps> {
     heading: string;
 }
 
-const Modal: React.FC<P> = observer(
-    ({ modalKey, children, heading, onShow, onHide, idx, closable = true, color = 'yellow' }: P) => {
+const ModalContainer: React.FC<P> = observer(
+    ({ modalKey, children, heading, onShow, onHide, idx, closable = true, }: P) => {
         const fade = useRef<HTMLDivElement>(null);
 
         const modalStore = useInjection(ModalStore);
@@ -30,6 +30,8 @@ const Modal: React.FC<P> = observer(
             return () => onHide?.();
         }, []);
 
+        
+
         return (
             <div
                 className={styles.fade}
@@ -37,13 +39,9 @@ const Modal: React.FC<P> = observer(
                 onClick={(e) => e.target === fade.current && closable && modalStore.hideModal(idx)}
             >
                 <div
-                    className={classNames(styles.modal, {
-                        [styles.yellow]: color === 'yellow',
-                        [styles.red]: color === 'red',
-                        [styles.green]: color === 'green',
-                    })}
+                    className={classNames(styles.modal,)}
                 >
-                    <h2 className={styles.heading}>{heading}</h2>
+                    <h2 className={styles.heading}>{heading}<span onClick={()=>modalStore.hideModal(idx)}>x</span></h2>
                     <div className={styles.children}>{children}</div>
                 </div>
             </div>
@@ -51,4 +49,4 @@ const Modal: React.FC<P> = observer(
     },
 );
 
-export default Modal;
+export default ModalContainer;
