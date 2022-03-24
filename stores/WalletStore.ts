@@ -10,7 +10,7 @@ import { login } from '../api/auth';
 import { getAuthToken, getAuthTokenTTL } from '../service';
 import { injectable } from "inversify";
 import 'reflect-metadata'
-import {CHAIN_ID, NETWORKS, PROVIDER_ETH} from "../utils/const";
+import {CHAIN_ID, NETWORKS, PROVIDER_ETH} from "../utils/config";
 import Web3Modal from "web3modal";
 import {RootStore} from "./RootStore";
 

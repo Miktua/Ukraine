@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { baseURL } from '../utils/config';
 import { isServer } from "../utils/utilities";
-import { baseURL } from './config';
 
 export const AUTH_TOKEN_NAME = 'jwt'
 export const AUTH_TOKEN_TTL_NAME = 'jwtTTL'
