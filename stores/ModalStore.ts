@@ -5,10 +5,13 @@ import { ModalsEnum } from "../modals";
 
 
 
+
 export interface ModalEntry {
     key: ModalsEnum;
     data?: any;
 }
+
+
 
 @injectable()
 export class ModalStore {
