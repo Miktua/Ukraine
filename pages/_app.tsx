@@ -4,9 +4,11 @@ import { useEffect } from 'react'
 import { RootStore } from '../stores/RootStore'
 import { Provider } from 'inversify-react'
 
+const rootStore = new RootStore()
+const container = rootStore.container
+
 function MyApp({ Component, pageProps }: AppProps) {
-    const rootStore = new RootStore()
-    const container = rootStore.container
+    
 
     // try reconnect to web3
     useEffect(() => {

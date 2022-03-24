@@ -1,10 +1,10 @@
 import request, { IResponse } from '../service'
-import { IAccount } from 'types/account.types'
-import { IProfile } from 'types/profile.types'
+// import { IAccount } from 'types/account.types'
+// import { IProfile } from 'types/profile.types'
 
 export interface IFetchProfileResponseData {
     address: string;
-    account: IAccount;
+    account: any;
     exp: number;
     iat: number;
     permissions: string[]
@@ -16,7 +16,7 @@ export function fetchProfile() {
     })
 }
 
-export function updateProfile(data: Partial<IProfile>) {
+export function updateProfile(data: Partial<any>) {
     return request<IResponse<IFetchProfileResponseData>>({
         url: `user`,
         method: 'PUT',

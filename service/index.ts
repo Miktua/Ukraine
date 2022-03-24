@@ -18,7 +18,7 @@ export const buildHeaders = (): AxiosRequestHeaders => ({
     authorization: !isServer && getAuthToken() ? `Bearer ${getAuthToken()}` : ''
 });
 
-const rootStore = new RootStore();
+// const rootStore = new RootStore();
 
 
 export const instance = axios.create({
@@ -53,7 +53,7 @@ const request = <T>({ url = '', method = 'GET', params = {}, headers = buildHead
                 if (axios.isAxiosError(err)) {
                     if (err.response?.status === 401) {
                         console.error({axiosError: err})
-                        return rootStore
+                        // return rootStore
                     }
 
                     return reject({

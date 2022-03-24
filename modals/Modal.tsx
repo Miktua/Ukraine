@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { ModalStore } from '../stores/ModalStore';
 import { useInjection } from 'inversify-react';
 import styles from './Modal.module.css';
-import { ModalsEnum } from 'modals';
+import { ModalsEnum } from '../modals';
 
 interface IModalProps {
     modalKey: ModalsEnum;
@@ -37,7 +37,7 @@ const Modal: React.FC<P> = observer(
                 onClick={(e) => e.target === fade.current && closable && modalStore.hideModal(idx)}
             >
                 <div
-                    className={classnames(styles.modal, {
+                    className={classNames(styles.modal, {
                         [styles.yellow]: color === 'yellow',
                         [styles.red]: color === 'red',
                         [styles.green]: color === 'green',
