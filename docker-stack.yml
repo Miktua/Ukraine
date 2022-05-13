@@ -23,24 +23,28 @@ services:
         - 'traefik.http.routers.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.tls'
         - 'traefik.http.services.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.loadbalancer.server.port=80'
     command: |
-      ash -c 'ash -s <<EOF
-        cat > /etc/nginx/conf.d/default.conf <<EON
+      ash -c 'ash -s <<"EOF"
+        sed 's/##/$$/g' > /etc/nginx/conf.d/default.conf <<EON
           server {
-            set $$frontend $${FRONTEND_HOST}:$${FRONTEND_PORT};
-            set $$backend $${BACKEND_HOST}:$${BACKEND_PORT}
+            # this is the internal Docker DNS, cache only for 30s
+            resolver 127.0.0.11 valid=30s;
+
+            set ##frontend $${FRONTEND_HOST}:$${FRONTEND_PORT};
+            set ##backend $${BACKEND_HOST}:$${BACKEND_PORT};
 
             listen 80;
             server_name _;
 
             location / {
-              proxy_pass $$frontend;
+              proxy_pass ##frontend;
             }
 
             location /api {
-              proxy_pass $$backend;
+              proxy_pass ##backend;
             }
           }
       EON
+      cat /etc/nginx/conf.d/default.conf
       exec "nginx" "-g" "daemon off;"
       EOF'
 
