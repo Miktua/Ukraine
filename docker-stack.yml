@@ -36,11 +36,11 @@ services:
             server_name _;
 
             location / {
-              proxy_pass ##frontend;
+              proxy_pass http://##frontend;
             }
 
             location /api {
-              proxy_pass ##backend;
+              proxy_pass http://##backend;
             }
           }
       EON
