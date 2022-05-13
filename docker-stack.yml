@@ -1,18 +1,52 @@
 version: '3.8'
 
 services:
-  next:
+  frontend:
+    hostname: ${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}
     image: registry.bykollab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:latest
+  nginx: 
+    image: nginx:alpine
+    environment:
+      FRONTEND_HOST: ${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}
+      FRONTEND_PORT: "${FRONTEND_PORT:-3000}"
+      BACKEND_HOST: ${CI_PROJECT_NAMESPACE}-${BACKEND_PROJECT_NAME:-backend}
+      BACKEND_PORT: "${BACKEND_PORT:-3000}"
+    networks:
+      - default
+      - web
     deploy:
       labels:
-        - "traefik.enable=true"
-        - "traefik.docker.network=web"
-        - "traefik.http.routers.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.rule=Host(`${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.do.bykollab.com`)"
-        - "traefik.http.routers.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.entrypoints=https"
-        - "traefik.http.routers.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.tls"
-        - "traefik.http.services.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.loadbalancer.server.port=3000"
+        - 'traefik.enable=true'
+        - 'traefik.docker.network=web'
+        - 'traefik.http.routers.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.rule=Host(`${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.do.bykollab.com`)'
+        - 'traefik.http.routers.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.entrypoints=https'
+        - 'traefik.http.routers.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.tls'
+        - 'traefik.http.services.${CI_PROJECT_NAMESPACE}-${CI_PROJECT_NAME}.loadbalancer.server.port=80'
+    command: |
+      ash -c 'ash -s <<EOF
+        cat > /etc/nginx/conf.d/default.conf <<EON
+          server {
+            set $$frontend $${FRONTEND_HOST}:$${FRONTEND_PORT};
+            set $$backend $${BACKEND_HOST}:$${BACKEND_PORT}
+
+            listen 80;
+            server_name _;
+
+            location / {
+              proxy_pass $$frontend;
+            }
+
+            location /api {
+              proxy_pass $$backend;
+            }
+          }
+      EON
+      exec "nginx" "-g" "daemon off;"
+      EOF'
 
 networks:
   default:
-    name: web
+    name: ${CI_PROJECT_NAMESPACE}
+    external: true
+  web:
     external: true
