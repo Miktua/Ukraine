@@ -1,15 +1,18 @@
 {
-  "plugins": ["@typescript-eslint", "prettier"],
   "extends": [
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
   ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
-    "@typescript-eslint/no-unused-vars": "warn",
-    "@typescript-eslint/no-explicit-any": "error",
-    "prettier/prettier": "error",
-    "arrow-body-style": "off",
-    "prefer-arrow-callback": "off"
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
+    "import/no-cycle": "off",
+    "@typescript-eslint/no-unused-vars": 1
   }
 }

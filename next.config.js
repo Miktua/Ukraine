@@ -1,20 +1,15 @@
-const isExport = process.env.EXPORT
-
-const config = isExport
-    ? {
-          images: {
-              loader: 'akamai',
-              path: '',
-          },
-          assetPrefix: './',
-      }
-    : {}
-
 /** @type {import('next').NextConfig} */
-module.exports = {
-    reactStrictMode: true,
-    future: {
-        webpack5: true,
-    },
-    ...config,
-}
+const nextConfig = {
+  reactStrictMode: true,
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
+  swcMinify: true,
+};
+
+module.exports = nextConfig;

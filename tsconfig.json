@@ -1,7 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2018",
+    "lib": [
+      "es2018",
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "esnext.asynciterable"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,10 +21,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "experimentalDecorators": true,
-    "useDefineForClassFields": true
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
