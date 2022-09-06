@@ -1,7 +1,0 @@
-.git/
-.gitlab-ci.yml
-.gitignore
-.dockerignore
-docker-compose.yml
-docker-stack.yml
-Dockerfile

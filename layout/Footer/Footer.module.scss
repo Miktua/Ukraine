@@ -1,0 +1,15 @@
+.root {
+  margin: 0 auto;
+}
+
+.copyright {
+  color: var(--text-light);
+}
+
+.copyrightLink {
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,27 @@
+html {
+  scroll-behavior: smooth;
+}
+
+html * {
+  font-family: -apple-system, BlinkMacSystemFont, 'Nunito', sans-serif !important;
+}
+
+body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  color: var(--text-secondary);
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 23px;
+}

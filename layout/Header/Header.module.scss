@@ -1,0 +1,45 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoIcon {
+  width: 150px;
+  height: 55px;
+}
+
+.userButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid var(--primary);
+  border-radius: 60px;
+  margin: auto 0;
+  padding: 4px 6px;
+  gap: 4px;
+}
+
+.userEmail {
+  color: var(--primary);
+}
+
+.menuOpened {
+  .expandIcon {
+    transform: rotate(180deg);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .userButton {
+    border: none;
+  }
+
+  .userEmail {
+    display: none;
+  }
+
+  .expandIcon {
+    display: none;
+  }
+}

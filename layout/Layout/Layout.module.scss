@@ -1,0 +1,37 @@
+.root {
+  max-width: 2000px;
+  padding: 20px 55px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+}
+
+.body {
+  min-height: 100%;
+  padding: 30px 0;
+  display: grid;
+  grid-template-rows: repeat(3, max-content);
+}
+
+@media screen and (max-width: 768px) {
+  .root {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .body {
+    grid-template-columns: 1fr max-content;
+    grid-template-rows: max-content 1fr;
+    grid-column-gap: 50px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .root {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
